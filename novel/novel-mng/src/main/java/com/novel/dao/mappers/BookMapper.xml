@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.novel.dao.BookMapper">
+	<resultMap id="BaseResultMap" type="com.novel.beans.Book">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="bookName" property="bookname" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
+		<result column="bookUrl" property="bookurl" jdbcType="VARCHAR" />
+		<result column="bookType" property="booktype" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, bookName, author, bookUrl, bookType
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from book
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from book
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.novel.beans.Book">
+		insert into book (id, bookName, author,
+		bookUrl, bookType)
+		values (#{id,jdbcType=INTEGER}, #{bookname,jdbcType=VARCHAR},
+		#{author,jdbcType=VARCHAR},
+		#{bookurl,jdbcType=VARCHAR}, #{booktype,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.novel.beans.Book">
+		insert into book
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="bookname != null">
+				bookName,
+			</if>
+			<if test="author != null">
+				author,
+			</if>
+			<if test="bookurl != null">
+				bookUrl,
+			</if>
+			<if test="booktype != null">
+				bookType,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="bookname != null">
+				#{bookname,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="bookurl != null">
+				#{bookurl,jdbcType=VARCHAR},
+			</if>
+			<if test="booktype != null">
+				#{booktype,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.novel.beans.Book">
+		update book
+		<set>
+			<if test="bookname != null">
+				bookName = #{bookname,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				author = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="bookurl != null">
+				bookUrl = #{bookurl,jdbcType=VARCHAR},
+			</if>
+			<if test="booktype != null">
+				bookType = #{booktype,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.novel.beans.Book">
+		update book
+		set bookName = #{bookname,jdbcType=VARCHAR},
+		author = #{author,jdbcType=VARCHAR},
+		bookUrl = #{bookurl,jdbcType=VARCHAR},
+		bookType = #{booktype,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>
