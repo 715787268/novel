@@ -7,9 +7,9 @@ public class Section {
 
     private String sectionurl;
 
-    private String bookname;
+    private Integer bookid;
 
-    private byte[] content;
+    private String content;
 
     public Integer getId() {
         return id;
@@ -35,19 +35,19 @@ public class Section {
         this.sectionurl = sectionurl == null ? null : sectionurl.trim();
     }
 
-    public String getBookname() {
-        return bookname;
+    public Integer getBookid() {
+        return bookid;
     }
 
-    public void setBookname(String bookname) {
-        this.bookname = bookname == null ? null : bookname.trim();
+    public void setBookid(Integer bookid) {
+        this.bookid = bookid;
     }
 
-    public byte[] getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(byte[] content) {
-        this.content = content;
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
     }
 }

@@ -1,110 +1,107 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.novel.dao.SectionMapper">
-	<resultMap id="BaseResultMap" type="com.novel.beans.Section">
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="sectionName" property="sectionname" jdbcType="VARCHAR" />
-		<result column="sectionUrl" property="sectionurl" jdbcType="VARCHAR" />
-		<result column="bookName" property="bookname" jdbcType="VARCHAR" />
-	</resultMap>
-	<resultMap id="ResultMapWithBLOBs" type="com.novel.beans.Section"
-		extends="BaseResultMap">
-		<result column="content" property="content" jdbcType="LONGVARBINARY" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		id, sectionName, sectionUrl, bookName
-	</sql>
-	<sql id="Blob_Column_List">
-		content
-	</sql>
-	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
-		parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		,
-		<include refid="Blob_Column_List" />
-		from section
-		where id = #{id,jdbcType=INTEGER}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from section
-		where id = #{id,jdbcType=INTEGER}
-	</delete>
-	<insert id="insert" parameterType="com.novel.beans.Section">
-		insert into section (id, sectionName, sectionUrl,
-		bookName, content)
-		values (#{id,jdbcType=INTEGER}, #{sectionname,jdbcType=VARCHAR},
-		#{sectionurl,jdbcType=VARCHAR},
-		#{bookname,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARBINARY})
-	</insert>
-	<insert id="insertSelective" parameterType="com.novel.beans.Section">
-		insert into section
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="sectionname != null">
-				sectionName,
-			</if>
-			<if test="sectionurl != null">
-				sectionUrl,
-			</if>
-			<if test="bookname != null">
-				bookName,
-			</if>
-			<if test="content != null">
-				content,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="sectionname != null">
-				#{sectionname,jdbcType=VARCHAR},
-			</if>
-			<if test="sectionurl != null">
-				#{sectionurl,jdbcType=VARCHAR},
-			</if>
-			<if test="bookname != null">
-				#{bookname,jdbcType=VARCHAR},
-			</if>
-			<if test="content != null">
-				#{content,jdbcType=LONGVARBINARY},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.novel.beans.Section">
-		update section
-		<set>
-			<if test="sectionname != null">
-				sectionName = #{sectionname,jdbcType=VARCHAR},
-			</if>
-			<if test="sectionurl != null">
-				sectionUrl = #{sectionurl,jdbcType=VARCHAR},
-			</if>
-			<if test="bookname != null">
-				bookName = #{bookname,jdbcType=VARCHAR},
-			</if>
-			<if test="content != null">
-				content = #{content,jdbcType=LONGVARBINARY},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.novel.beans.Section">
-		update section
-		set sectionName = #{sectionname,jdbcType=VARCHAR},
-		sectionUrl = #{sectionurl,jdbcType=VARCHAR},
-		bookName = #{bookname,jdbcType=VARCHAR},
-		content = #{content,jdbcType=LONGVARBINARY}
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.novel.beans.Section">
-		update section
-		set sectionName = #{sectionname,jdbcType=VARCHAR},
-		sectionUrl = #{sectionurl,jdbcType=VARCHAR},
-		bookName = #{bookname,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=INTEGER}
-	</update>
+<mapper namespace="com.novel.dao.SectionMapper" >
+  <resultMap id="BaseResultMap" type="com.novel.beans.Section" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sectionName" property="sectionname" jdbcType="VARCHAR" />
+    <result column="sectionUrl" property="sectionurl" jdbcType="VARCHAR" />
+    <result column="bookId" property="bookid" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.novel.beans.Section" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sectionName, sectionUrl, bookId
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from section
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from section
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.novel.beans.Section" >
+    insert into section (id, sectionName, sectionUrl, 
+      bookId, content)
+    values (#{id,jdbcType=INTEGER}, #{sectionname,jdbcType=VARCHAR}, #{sectionurl,jdbcType=VARCHAR}, 
+      #{bookid,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.novel.beans.Section" >
+    insert into section
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sectionname != null" >
+        sectionName,
+      </if>
+      <if test="sectionurl != null" >
+        sectionUrl,
+      </if>
+      <if test="bookid != null" >
+        bookId,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sectionname != null" >
+        #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionurl != null" >
+        #{sectionurl,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null" >
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.novel.beans.Section" >
+    update section
+    <set >
+      <if test="sectionname != null" >
+        sectionName = #{sectionname,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionurl != null" >
+        sectionUrl = #{sectionurl,jdbcType=VARCHAR},
+      </if>
+      <if test="bookid != null" >
+        bookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.novel.beans.Section" >
+    update section
+    set sectionName = #{sectionname,jdbcType=VARCHAR},
+      sectionUrl = #{sectionurl,jdbcType=VARCHAR},
+      bookId = #{bookid,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.novel.beans.Section" >
+    update section
+    set sectionName = #{sectionname,jdbcType=VARCHAR},
+      sectionUrl = #{sectionurl,jdbcType=VARCHAR},
+      bookId = #{bookid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
